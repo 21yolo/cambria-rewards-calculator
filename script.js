@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Calculate rewards based on inputs
     function calculateRewards() {
-        // Get input values
-        const userCoinsNum = parseFloat(coinsHeldInput.value) || 0;
-        const userTrinketsNum = parseFloat(trinketsInput.value) || 0;
+        // Get input values - only accept explicitly entered values
+        const userCoinsNum = coinsHeldInput.value.trim() === '' ? 0 : parseFloat(coinsHeldInput.value) || 0;
+        const userTrinketsNum = trinketsInput.value.trim() === '' ? 0 : parseFloat(trinketsInput.value) || 0;
         
         // Validate inputs
         if (userCoinsNum < 0 || userTrinketsNum < 0) {
@@ -73,8 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const tokenValue = marketCap / totalTokenSupply;
         
-        // Only use direct trinket input, no estimation
-        const tokenRewardUSD = userTrinketsNum * tokenValue;
+        // Only use direct trinket input, no estimation - use exactly 0 if field is empty
+        const hasExplicitTrinkets = trinketsInput.value.trim() !== '';
+        const tokenRewardUSD = hasExplicitTrinkets ? (userTrinketsNum * tokenValue) : 0;
         
         // Check if eligible for cashout (>= $10)
         const isCashoutEligible = coinPoolRewardUSD >= 10;
@@ -85,10 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update results display
         updateResults({
             coinPoolRewardUSD,
-            trinkets: userTrinketsNum,
+            trinkets: hasExplicitTrinkets ? userTrinketsNum : 0,
             tokenRewardUSD,
             totalRewardUSD,
-            isCashoutEligible
+            isCashoutEligible,
+            hasExplicitTrinkets
         });
         
         // Show results card
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update results display
     function updateResults(results) {
         // Update coin pool reward
-        coinRewardUsd.textContent = `$${results.coinPoolRewardUSD.toFixed(2)}`;
+        coinRewardUsd.textContent = `${results.coinPoolRewardUSD.toFixed(2)}`;
         
         // Show/hide cashout warning
         if (!results.isCashoutEligible) {
@@ -114,10 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
         trinketAmount.textContent = results.trinkets.toLocaleString(undefined, {maximumFractionDigits: 0});
         
         // Update token reward
-        tokenRewardUsd.textContent = `$${results.tokenRewardUSD.toFixed(2)}`;
+        tokenRewardUsd.textContent = `${results.tokenRewardUSD.toFixed(2)}`;
         
         // Update total reward
-        totalRewardUsd.textContent = `$${results.totalRewardUSD.toFixed(2)}`;
+        totalRewardUsd.textContent = `${results.totalRewardUSD.toFixed(2)}`;
     }
     
     // Input validation for numbers
