@@ -341,10 +341,15 @@
     pointer-events: none;
   }
   
-  /* Position tooltips to the right of the question mark */
-  .tooltip {
+  /* Position tooltips based on their parent section */
+  .coin-pool .tooltip {
     left: 25px;
     right: auto;
+  }
+  
+  .token-pool .tooltip {
+    right: 25px;
+    left: auto;
   }
   
   .tooltip-container:hover .tooltip {
