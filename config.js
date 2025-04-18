@@ -15,6 +15,8 @@ const CONFIG = {
     // Default market cap estimate in USD
     defaultMarketCap: 50000000,
     
-    // Set to "auto" to use current time, or specify a date string
-    lastUpdated: "auto"
+    // Last updated timestamp - manually set this value
+    // Format: "Month Day, Year at HH:MM AM/PM UTC"
+    // Example: "April 18, 2025 at 04:16 PM UTC"
+    lastUpdated: "April 18, 2025 at 04:40 PM UTC"
 };

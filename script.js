@@ -30,26 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         coinsCirculationEl.textContent = CONFIG.totalCoinsInCirculation.toLocaleString();
         defaultMcapEl.textContent = `$${CONFIG.defaultMarketCap.toLocaleString()}`;
         
-        // Set the last updated timestamp
-        if (CONFIG.lastUpdated === "auto") {
-            lastUpdatedEl.textContent = getCurrentUTCTimestamp();
-        } else {
-            lastUpdatedEl.textContent = CONFIG.lastUpdated;
-        }
-    }
-    
-    // Get current UTC timestamp in a readable format
-    function getCurrentUTCTimestamp() {
-        const now = new Date();
-        const options = { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit', 
-            minute: '2-digit',
-            timeZone: 'UTC'
-        };
-        return now.toLocaleDateString('en-US', options) + ' UTC';
+        // Set the last updated timestamp from config
+        lastUpdatedEl.textContent = CONFIG.lastUpdated;
     }
     
     // Toggle custom market cap input
@@ -91,12 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const tokenValue = marketCap / totalTokenSupply;
         
-        // If user directly entered trinkets, use that value, otherwise estimate from coins
-        const estimatedTokens = userTrinketsNum > 0 ? 
-            userTrinketsNum : 
-            (userCoinsNum / totalCoinsInCirculation) * (totalTokenSupply * 0.03);
-        
-        const tokenRewardUSD = estimatedTokens * tokenValue;
+        // Only use direct trinket input, no estimation
+        const tokenRewardUSD = userTrinketsNum * tokenValue;
         
         // Check if eligible for cashout (>= $10)
         const isCashoutEligible = coinPoolRewardUSD >= 10;
@@ -107,11 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update results display
         updateResults({
             coinPoolRewardUSD,
-            estimatedTokens,
+            trinkets: userTrinketsNum,
             tokenRewardUSD,
             totalRewardUSD,
-            isCashoutEligible,
-            usingDirectTrinketInput: userTrinketsNum > 0
+            isCashoutEligible
         });
         
         // Show results card
@@ -133,12 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Update trinket display
-        if (results.usingDirectTrinketInput) {
-            trinketLabel.textContent = 'Trinkets:';
-        } else {
-            trinketLabel.textContent = 'Estimated Trinkets:';
-        }
-        trinketAmount.textContent = results.estimatedTokens.toLocaleString(undefined, {maximumFractionDigits: 0});
+        trinketLabel.textContent = 'Trinkets:';
+        trinketAmount.textContent = results.trinkets.toLocaleString(undefined, {maximumFractionDigits: 0});
         
         // Update token reward
         tokenRewardUsd.textContent = `$${results.tokenRewardUSD.toFixed(2)}`;
