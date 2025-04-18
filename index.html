@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambria Season 2 Rewards Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="background-animation"></div>
+        
+        <header class="header">
+            <h1 class="title">Cambria Gold Rush</h1>
+            <h2 class="subtitle">Season 2 Rewards Calculator</h2>
+        </header>
+
+        <main class="main-content">
+            <div class="card calculator-card">
+                <div class="stats-section">
+                    <h3>Current Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stats-item">
+                            <span class="stats-label">Total Prize Pool:</span>
+                            <span id="prize-pool" class="stats-value">$1,000,000</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label">Total Coins in Circulation:</span>
+                            <span id="coins-circulation" class="stats-value">6,800,000,000</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label">Default Market Cap:</span>
+                            <span id="default-mcap" class="stats-value">$50,000,000</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label">Last Updated:</span>
+                            <span id="last-updated" class="stats-value">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <h3>Enter Your Seasonal Statistics</h3>
+                    
+                    <div class="input-group">
+                        <label for="coins-held">Coins Held:</label>
+                        <input type="number" id="coins-held" placeholder="Enter number of coins" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="trinkets">Trinkets:</label>
+                        <input type="number" id="trinkets" placeholder="Enter number of Trinkets" min="0">
+                    </div>
+                    
+                    <div class="custom-mcap-toggle">
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="custom-mcap-toggle">
+                            <label for="custom-mcap-toggle"></label>
+                        </div>
+                        <span>Use custom market cap estimation</span>
+                    </div>
+                    
+                    <div id="custom-mcap-input" class="input-group hidden">
+                        <label for="custom-mcap">Custom Market Cap (USD):</label>
+                        <input type="number" id="custom-mcap" placeholder="Enter custom market cap" min="0">
+                    </div>
+                    
+                    <button id="calculate-btn" type="button">Calculate Rewards</button>
+                </div>
+            </div>
+            
+            <div id="results-card" class="card results-card hidden">
+                <h3>Estimated Rewards</h3>
+                
+                <div class="results-grid">
+                    <div class="result-section coin-pool">
+                        <div class="result-header">
+                            <h4>Coin Pool Rewards</h4>
+                            <div class="tooltip-container">
+                                <div class="help-icon">?</div>
+                                <div class="tooltip">
+                                    All of the ETH / RON spent on the game funds this Main Prize Pool. 90% of that pool is distributed based on the coin holdings. There is no cap to USDC that you can earn from the Main Prize Pool - the richer you are in-game, the bigger your split of the final pool.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result-content">
+                            <p>Estimated USD Value: <span id="coin-reward-usd" class="reward-value">$0.00</span></p>
+                            <p id="cashout-warning" class="warning hidden">⚠️ Your estimated reward is below the $10 minimum required for cashout.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="result-section token-pool">
+                        <div class="result-header">
+                            <h4>Token Rewards</h4>
+                            <div class="tooltip-container">
+                                <div class="help-icon">?</div>
+                                <div class="tooltip">
+                                    Trinkets are Cambria Airdrop points. In Season 2, 3% of the project's token supply will be allocated to active players. Trinkets' value is estimated based on last season's rewards.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result-content">
+                            <p><span id="trinket-label">Estimated Trinkets:</span> <span id="trinket-amount" class="reward-value">0</span></p>
+                            <p>Estimated USD Value: <span id="token-reward-usd" class="reward-value">$0.00</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="total-reward">
+                    <p>Total Estimated Reward: <span id="total-reward-usd" class="total-value">$0.00</span></p>
+                    <p id="total-note" class="note hidden">(Coin pool rewards excluded from total as they are below the $10 minimum)</p>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>Created by <a href="https://x.com/y0Lo_21" target="_blank">yOLo21.eth</a></p>
+            <p class="disclaimer">*This calculator is for estimation purposes only. Actual rewards may vary.*</p>
+        </footer>
+    </div>
+    
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
