@@ -182,11 +182,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
+        // Set up tooltip tap handling for mobile
+        function setupTooltipTapHandling() {
+            // Get all help icons
+            const helpIcons = document.querySelectorAll('.help-icon');
+            
+            // Add click/tap handler to each help icon
+            helpIcons.forEach(icon => {
+                icon.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent the click from immediately closing the tooltip
+                    
+                    // Find the associated tooltip
+                    const tooltip = this.parentNode.querySelector('.tooltip');
+                    
+                    // First close all other open tooltips
+                    document.querySelectorAll('.tooltip.active').forEach(openTooltip => {
+                        if (openTooltip !== tooltip) {
+                            openTooltip.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle this tooltip
+                    tooltip.classList.toggle('active');
+                });
+            });
+            
+            // Close tooltips when clicking anywhere else on the page
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.tooltip.active').forEach(tooltip => {
+                    tooltip.classList.remove('active');
+                });
+            });
+        }
+        
         // Run once on load
         updateTooltipPositions();
         
         // Update on window resize
         window.addEventListener('resize', updateTooltipPositions);
+        
+        // Set up tap handling for tooltips
+        setupTooltipTapHandling();
     }
     
     // Initialize the app

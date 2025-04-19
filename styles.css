@@ -357,6 +357,13 @@ input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
 }
 
+/* Active state for tooltips (for tap/click functionality) */
+.tooltip.active {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
 .reward-value {
   font-weight: 600;
   color: white;
@@ -488,5 +495,12 @@ input[type="number"]::-webkit-outer-spin-button {
   .coin-pool .tooltip {
     left: 25px !important;
     right: auto !important;
+  }
+  
+  /* Make help icons larger for better touch targets */
+  .help-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
   }
 }
