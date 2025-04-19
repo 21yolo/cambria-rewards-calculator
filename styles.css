@@ -289,8 +289,6 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 8px;
   padding: 1rem;
   border: 1px solid var(--border-color);
-  position: relative;
-  overflow: visible;
 }
 
 .result-header {
@@ -341,7 +339,6 @@ input[type="number"]::-webkit-outer-spin-button {
   opacity: 0;
   transition: visibility 0s, opacity 0.3s;
   pointer-events: none;
-  max-width: 90vw; /* Ensure tooltip doesn't exceed viewport width */
 }
 
 /* Position tooltips based on their parent section */
@@ -353,17 +350,6 @@ input[type="number"]::-webkit-outer-spin-button {
 .token-pool .tooltip {
   right: 25px;
   left: auto;
-}
-
-/* Mobile-specific tooltip positioning */
-body.mobile-device .coin-pool .tooltip {
-  left: auto;
-  right: -220px; /* Adjust this value as needed */
-}
-
-body.mobile-device .token-pool .tooltip {
-  right: auto;
-  left: -220px; /* Adjust this value as needed */
 }
 
 .tooltip-container:hover .tooltip {
@@ -485,8 +471,22 @@ body.mobile-device .token-pool .tooltip {
   }
   
   .tooltip {
-    width: 220px;
-    font-size: 0.7rem;
-    padding: 0.6rem;
+    width: 200px;
+  }
+}
+
+/* Mobile/Touch Device Tooltip Positioning */
+@media (max-width: 1024px), (pointer: coarse) {
+  /* Make tooltip adapt to mobile and touch devices */
+  .tooltip {
+    width: 200px; /* Smaller width on mobile */
+    max-width: 80vw; /* Ensure tooltip isn't wider than the viewport */
+  }
+  
+  /* Both tooltips should open to the left on mobile */
+  .token-pool .tooltip,
+  .coin-pool .tooltip {
+    left: 25px !important;
+    right: auto !important;
   }
 }
