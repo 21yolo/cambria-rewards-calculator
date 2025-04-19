@@ -147,6 +147,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // Setup tooltip positioning based on device type
+    function setupTooltipPositioning() {
+        // Function to detect if device is mobile based on screen width
+        function isMobileDevice() {
+            return window.innerWidth <= 768; // This matches your existing media query breakpoint
+        }
+        
+        // Function to adjust tooltip positioning based on device type
+        function adjustTooltipPositions() {
+            const tooltipContainers = document.querySelectorAll('.tooltip-container');
+            const isMobile = isMobileDevice();
+            
+            // Add/remove mobile-specific class for tooltips
+            document.body.classList.toggle('mobile-device', isMobile);
+            
+            tooltipContainers.forEach(container => {
+                // Make sure tooltips stay in viewport
+                container.addEventListener('mouseenter', function() {
+                    const tooltip = this.querySelector('.tooltip');
+                    const tooltipRect = tooltip.getBoundingClientRect();
+                    
+                    // If tooltip extends beyond viewport edges, adjust position
+                    if (tooltipRect.right > window.innerWidth) {
+                        tooltip.style.right = 'auto';
+                        tooltip.style.left = '-220px'; // Adjust this value as needed
+                    } else if (tooltipRect.left < 0) {
+                        tooltip.style.left = 'auto';
+                        tooltip.style.right = '-220px'; // Adjust this value as needed
+                    }
+                });
+            });
+        }
+        
+        // Run on page load and window resize
+        adjustTooltipPositions();
+        window.addEventListener('resize', adjustTooltipPositions);
+    }
+    
     // Initialize the app
     function init() {
         // Initialize values from config
@@ -158,6 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Set up input validation
         setupInputValidation();
+        
+        // Set up responsive tooltip positioning
+        setupTooltipPositioning();
     }
     
     // Start the app
