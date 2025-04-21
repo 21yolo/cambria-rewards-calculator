@@ -7,7 +7,7 @@ const CONFIG = {
     totalPrizePoolUSD: 1212659,
     
     // Total coins in circulation
-    totalCoinsInCirculation: 17108654415,
+    totalCoinsInCirculation: 17330112716,
     
     // Total token supply
     totalTokenSupply: 169999999999,
@@ -16,5 +16,5 @@ const CONFIG = {
     defaultMarketCap: 50000000,
     
     // Last updated timestamp
-    lastUpdated: "April 21, 2025 at 5:38 PM UTC"
+    lastUpdated: "April 21, 2025 at 11:05 PM UTC"
 };
