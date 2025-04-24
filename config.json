@@ -1,8 +1,0 @@
-{
-    "path": "",
-    "helper_contract": {
-        "address": "0xa9f9736c2567c4b661cf58c2272c50a5eb25b903"
-    },
-    "gwei": 30,
-    "gas_limit": 300000
-}
