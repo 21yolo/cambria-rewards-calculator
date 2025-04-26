@@ -7,7 +7,7 @@ const CONFIG = {
     totalPrizePoolUSD: 1424107,
     
     // Total coins in circulation
-    totalCoinsInCirculation: 32542854746,
+    totalCoinsInCirculation: 32562468621,
     
     // Total token supply
     totalTokenSupply: 169999999999,
