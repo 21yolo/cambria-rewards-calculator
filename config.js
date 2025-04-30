@@ -16,5 +16,5 @@ const CONFIG = {
     defaultMarketCap: 50000000,
     
     // Last updated timestamp
-    lastUpdated: "April 25, 2025 at 19:00 PM UTC"
+    lastUpdated: "April 25, 2025 at 19:00 UTC"
 };
